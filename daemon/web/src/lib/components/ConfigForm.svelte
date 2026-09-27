@@ -755,6 +755,18 @@
 
                         <div class="flex items-center">
                             <input
+                                id="null_integrity"
+                                type="checkbox"
+                                bind:checked={config.analyzers.null_integrity}
+                                class="h-4 w-4 text-rayhunter-blue focus:ring-rayhunter-blue border-gray-300 rounded-sm"
+                            />
+                            <label for="null_integrity" class="ml-2 block text-sm text-gray-700">
+                                Null Integrity Heuristic
+                            </label>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input
                                 id="incomplete_sib"
                                 type="checkbox"
                                 bind:checked={config.analyzers.incomplete_sib}

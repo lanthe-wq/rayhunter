@@ -15,7 +15,8 @@ use super::{
     imsi_requested::ImsiRequestedAnalyzer, incomplete_sib::IncompleteSibAnalyzer,
     information_element::InformationElement, nas_null_cipher::NasNullCipherAnalyzer,
     no_nas_messages::NoNasMessagesAnalyzer, null_cipher::NullCipherAnalyzer,
-    priority_2g_downgrade::LteSib6And7DowngradeAnalyzer, test_analyzer::TestAnalyzer,
+    null_integrity::NullIntegrityAnalyzer, priority_2g_downgrade::LteSib6And7DowngradeAnalyzer,
+    test_analyzer::TestAnalyzer,
 };
 
 /// A list of booleans which stores information about which analyzers are enabled
@@ -28,6 +29,7 @@ pub struct AnalyzerConfig {
     pub lte_sib6_and_7_downgrade: bool,
     pub null_cipher: bool,
     pub nas_null_cipher: bool,
+    pub null_integrity: bool,
     pub incomplete_sib: bool,
     pub test_analyzer: bool,
     pub imsi_requested: bool,
@@ -43,6 +45,7 @@ impl Default for AnalyzerConfig {
             lte_sib6_and_7_downgrade: true,
             null_cipher: true,
             nas_null_cipher: true,
+            null_integrity: true,
             incomplete_sib: true,
             test_analyzer: false,
             no_nas_messages: false,
@@ -373,6 +376,10 @@ impl Harness {
 
         if analyzer_config.nas_null_cipher {
             harness.add_analyzer(Box::new(NasNullCipherAnalyzer {}))
+        }
+
+        if analyzer_config.null_integrity {
+            harness.add_analyzer(Box::new(NullIntegrityAnalyzer {}))
         }
 
         if analyzer_config.incomplete_sib {

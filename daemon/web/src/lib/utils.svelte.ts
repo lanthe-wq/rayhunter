@@ -8,6 +8,7 @@ export interface AnalyzerConfig {
     lte_sib6_and_7_downgrade: boolean;
     null_cipher: boolean;
     nas_null_cipher: boolean;
+    null_integrity: boolean;
     incomplete_sib: boolean;
     test_analyzer: boolean;
     diagnostic_analyzer: boolean;
