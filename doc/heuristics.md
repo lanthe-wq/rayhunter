@@ -67,6 +67,14 @@ This analyzer tests whether the security mode command at the NAS layer suggests 
 
 It could also indicate an IMSI catcher which is connected to the mobile network MME and HLR through cooperation between government and telecom provider. Or it could be a false positive if the telecom provider is intending to use null ciphers (if encryption is illegal in some country, or they have some misconfiguration of the network), however this should be very rare case.
 
+### Null Integrity
+
+This analyzer tests whether the network requests null integrity protection (EIA0). It checks the RRC security mode command and handover security configuration sent by the base station, as well as the NAS security mode command sent by the MME.
+
+Integrity protection lets your mobile device verify that signalling messages really come from the network and have not been tampered with. Unlike encryption, it cannot be switched off for regulatory reasons: the 3GPP standard (TS 33.401) only allows EIA0 for emergency calls made without authentication, and Rayhunter never makes emergency calls. A fake base station that does not have valid keys for your SIM card cannot compute valid integrity checks, so it might ask for EIA0 instead. Without integrity protection, whoever runs the base station can inject or modify signalling messages, for example to redirect your device to 2G.
+
+A false positive would require a badly misconfigured network, which should be very rare.
+
 ### Incomplete SIB
 
 This analyzer tests whether the SIB1 message contains a complete SIB chain (SIB3, SIB5, etc.). A legitimate SIB1 message should contain timing information for at least 2 additional SIBs (SIB3, 4, and 5 being the most common) but a fake base station will often not bother to send additional SIBs beyond 1 and 2 (i. e. some IMSI catchers send just SIB1 and *one additional* SIB).
